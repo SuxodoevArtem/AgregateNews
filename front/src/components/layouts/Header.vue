@@ -23,7 +23,7 @@
 
     nav{
 
-        box-shadow: 0 0 3px 0 rgba(192, 189, 189, 0.95);
+        box-shadow: 0px 0 5px 0 rgba(114, 192, 236, 0.95);
         background-color: $background-color_header;
         height: 60px;
         display: flex;
@@ -38,7 +38,7 @@
             }
 
             .right-conteiner_links{
-                
+
             }
 
             .right-conteiner_links a{
@@ -46,7 +46,7 @@
                 padding-bottom: 5px;
                 padding-right: 10px;
                 padding-left: 10px;
-                border-bottom: 2px solid #47C8FF;
+                border-bottom: 3px solid #3faad8;
             }
 
         }
