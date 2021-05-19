@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header/>  
-    <h1>News</h1>
+    <h1>Settings</h1>
   </div>
 </template>
 
@@ -9,10 +9,11 @@
 
 export default {
   
-  name: 'News',
+  name: 'Settings',
   components: {
     Header: () => import('@/components/layouts/Header')
   }
+
 }
 </script>
 

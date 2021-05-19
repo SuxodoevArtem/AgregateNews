@@ -7,7 +7,27 @@ const routes = [
     {
         path: '/',
         name: 'News',
-        component: () => import(/* webpackChunkName: "Home" */ '@/views/News.vue'),
+        component: () => import(/* webpackChunkName: "News" */ '@/views/News.vue'),
+    },
+    {
+        path: '/Settings',
+        name: 'Settings',
+        component: () => import('@/views/Settings.vue'),
+    },
+    {
+        path: '/Analistics',
+        name: 'Analistics',
+        component: () => import('@/views/Analistics.vue'),
+    },
+    {
+        path: '/SignUp',
+        name: 'SignUp',
+        component: () => import('@/views/SignUp.vue'),
+    },
+    {
+        path: '/Login',
+        name: 'Login',
+        component: () => import('@/views/Login.vue'),
     },
 ]
 

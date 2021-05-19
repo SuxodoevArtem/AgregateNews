@@ -1,15 +1,17 @@
 <template>
     <nav>
-        <div class="right-conteiner">
-            <h5 class="right-conteiner_logo">NewsAgregate</h5>
-            <div class="right-conteiner_links">
-               <a>News</a>
-               <a>Settings</a>
-               <a>Analistics</a>
+        <div class="left-conteiner">
+            <h5 class="left-conteiner_logo">NewsAgregate</h5>
+            <div class="left-conteiner_links">
+              <router-link to="/"><a>News</a></router-link>
+              <router-link to="/Settings"><a>Settings</a></router-link>
+              <router-link to="/Analistics"><a>Analistics</a></router-link>
             </div>
         </div>
-        <div class="left-conteiner">
-            
+        <div class="right-conteiner">
+            <p>
+                <router-link to="/Login"><a>Log Out</a></router-link> \  <router-link to="/SignUp"><a>Sign Up</a></router-link>
+            </p>
         </div>
     </nav>
 </template>
@@ -23,37 +25,50 @@
 
     nav{
 
-        box-shadow: 0px 0 5px 0 rgba(114, 192, 236, 0.95);
+        box-shadow: 0px 0 5px 0 rgba(90, 171, 218, 0.95);
         background-color: $background-color_header;
         height: 60px;
         display: flex;
         color: $color_header;
 
-        .right-conteiner{
+        .left-conteiner{
             width: 50%;
             margin-left: 2%;
 
-            .right-conteiner_logo{
-              
+            .left-conteiner_logo{
+              padding-top: 3px;
+              padding-left: 10px;
+              font-weight: 100;
             }
 
-            .right-conteiner_links{
-
-            }
-
-            .right-conteiner_links a{
+            .left-conteiner_links a{
                 font-size: 14px;
-                padding-bottom: 5px;
-                padding-right: 10px;
-                padding-left: 10px;
-                border-bottom: 3px solid #3faad8;
+                text-decoration: none;
+                color: $color_header;
+                padding-bottom: 2px;
+                padding-right: 5px;
+                padding-left: 5px;
+                cursor: pointer;
+            }
+
+            .left-conteiner_links a:hover{
+                border-bottom: 3px solid $color_header;
             }
 
         }
 
-        .left-conteiner{
-            display: flex;
+        .right-conteiner{
             width: 50%;
+            display: flex;
+            justify-content: flex-end;
+            padding-top: 15px;
+            padding-right: 35px;
+
+            a{
+                cursor:  pointer;
+                text-decoration: none;
+                color: $color_header;
+            }
         }
     }
 
