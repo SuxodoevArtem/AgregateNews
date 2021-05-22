@@ -68,10 +68,23 @@ const GetAllSettings = async (idUser) => {
     return data;
 }
 
+const GetUser = async ( email ) => {
+
+    const data = await postgres.any(
+        `SELECT users_id, users_password, users_email
+            FROM public.users
+            WHERE users_email = $1`
+        ,email
+    );
+
+    return data;
+}
+
 
 module.exports = {
     CreateDatabase,
     GetAllNews,
-    GetAllSettings
+    GetAllSettings,
+    GetUser
 }
 

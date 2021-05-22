@@ -4,7 +4,13 @@
       <input class="SignUp-conteiner_input" placeholder="Email">
       <input class="SignUp-conteiner_input" placeholder="Password" type="password">
       <input class="SignUp-conteiner_input" placeholder="Password" type="password">
-      <button class="SignUp-conteiner_button">SignUp</button>
+        <div class="btn-container"> 
+            <button class="SignUp-conteiner_button">SignUp</button>
+            <button class="SignUp-conteiner_button">
+                <router-link to="/Login">
+                    <a>Login</a>
+                </router-link></button>
+        </div>
   </div>
 </template>
 
@@ -49,17 +55,42 @@ export default {
             padding-left: 10px;
         }
 
-        .SignUp-conteiner_button{
-            display: block;
-            margin: auto;
-            margin-top: 30px;
-            width: 100px;
-            height: 45px;
-            background-color: $background-color_SignUp-conteiner;
-            border: 2px solid $h1-color;
-            border-radius: 5px;
-            color: $h1-color;
+        .btn-container{
+
+            display: flex;
+            margin: 30px;
+            padding: 0;
+            .SignUp-conteiner_button{
+                display: block;
+                margin: auto;
+            
+                width: 42%;
+                height: 45px;
+                background-color: $background-color_SignUp-conteiner;
+                border: 2px solid $h1-color;
+                border-radius: 5px;
+                color: $h1-color;
+            }
+
+            .SignUp-conteiner_button a{
+                color: $h1-color;
+                text-decoration: none;
+            }
+
+            .SignUp-conteiner_button:hover{
+                background-color: #79ABFF;
+                color: #ffffff;
+                transition: 0.2s all;
+
+                a{
+                    color: #ffffff;
+                    transition: 0.2s all;
+                }
+            }
+
+     
         }
+
     }
 
     @media (max-width: 1600px){
