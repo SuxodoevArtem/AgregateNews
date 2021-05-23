@@ -1,29 +1,48 @@
 <template>
   <div class="Login-conteiner">
     <h2>Login</h2>
-    <input class="Login-conteiner_input" placeholder="Email">
-    <input class="Login-conteiner_input" placeholder="Password" type="password">
-    <h5>Forgot password?</h5>
+    <input class="Login-conteiner_input" placeholder="Email" type="text" v-model="loginForm.email">
+    <input class="Login-conteiner_input" placeholder="Password" type="password" v-model="loginForm.password">
+    <h6>Forgot password?</h6>
 
     <div class="btn-container"> 
-        <button class="Login-conteiner_button">Login</button>
+        <button class="Login-conteiner_button" @click="Login">Login</button>
         <button class="Login-conteiner_button">
             <router-link to="/SignUp">
                 <a>SignUp</a>
-            </router-link>
+            </router-link>  
         </button>
     </div>
+
+    <h5 class="Login-conteiner_messange" v-text="messange"></h5>
 
   </div>
 </template>
 
 <script >
 
-export default {
-  
-  name: 'Login',
+import { mapActions } from 'vuex'
 
+export default {
+    name: 'Login',
+    data: () => ({
+        loginForm: {
+            email: " ",
+            password: " "
+        },
+        messange: `Ваш логин или пороль неподходят !`,
+    }),
+    methods: {
+        ...mapActions({
+            login: 'login',
+        }),
+        async Login(){
+            await this.login(this.loginForm);
+            
+        }
+    }
 }
+
 </script>
 
 <style lang="scss">
@@ -59,7 +78,7 @@ export default {
             padding-left: 10px;
         }
 
-        h5{
+        h6{
             margin-top: 15px;
             margin-right: 45px;
             text-align: right;
@@ -101,6 +120,14 @@ export default {
 
             }
         }
+
+        .Login-conteiner_messange {
+            color: $color_err;
+            padding-top: 25px;
+            padding-left: 100px;
+            padding-right: 100px;
+            text-align: center;
+        }
         
     }
 
@@ -132,8 +159,8 @@ export default {
 
     @media (max-width: 568px){
         .Login-conteiner{
-            width: 80%;
-            height: 450px;
+            width: 90%;
+            height: 480px;
         }
     }
 </style>

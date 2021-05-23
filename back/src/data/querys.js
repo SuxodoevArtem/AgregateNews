@@ -4,24 +4,24 @@ const CreateDatabase = async () => {
 
     await postgres.any(
         `CREATE TABLE if not exists users (
-            users_id integer PRIMARY KEY NOT NULL,
+            users_id SERIAL PRIMARY KEY NOT NULL,
             users_password text NOT NULL,
             users_email varchar(100) NOT NULL
         );
-                
+		
         CREATE TABLE if not exists sourseNews (
-            sourseNews_id integer PRIMARY KEY,
+            sourseNews_id SERIAL PRIMARY KEY,
             users_id integer REFERENCES users (users_id) ON DELETE CASCADE
         ); 
         
         CREATE TABLE if not exists rss (
-            rss_id integer PRIMARY KEY NOT NULL,
+            rss_id SERIAL PRIMARY KEY NOT NULL,
             sourseNews_id integer REFERENCES  sourseNews (sourseNews_id) ON DELETE CASCADE,
             rss_link text NOT NULL
         );
         
         CREATE TABLE if not exists news (
-            news_id integer PRIMARY KEY,
+            news_id SERIAL PRIMARY KEY,
             sourseNews_id integer REFERENCES sourseNews (sourseNews_id) ON DELETE CASCADE,
             news_title varchar(150) NOT NULL,
             news_img text NOT NULL,
@@ -31,13 +31,13 @@ const CreateDatabase = async () => {
         ); 
         
         CREATE TABLE if not exists keyWords(
-            keyWords_id integer PRIMARY KEY NOT NULL,
+            keyWords_id SERIAL PRIMARY KEY NOT NULL,
             keyWords_word varchar(100) NOT NULL,
             sourseNews_id integer REFERENCES sourseNews (sourseNews_id) ON DELETE CASCADE
         );
         
         CREATE TABLE if not exists rssList (
-            rss_id integer PRIMARY KEY NOT NULL,
+            rss_id SERIAL PRIMARY KEY NOT NULL,
             rss_link text NOT NULL
         ); `
     );
@@ -80,11 +80,22 @@ const GetUser = async ( email ) => {
     return data;
 }
 
+const CreateUser = async (email, passwordHash) => {
+
+    const data = await postgres.any(
+        `INSERT INTO public.users(
+            users_password, users_email)
+            VALUES ($1, $2)`, [passwordHash, email]
+    );
+
+    return data;
+}
 
 module.exports = {
     CreateDatabase,
     GetAllNews,
     GetAllSettings,
-    GetUser
+    GetUser,
+    CreateUser
 }
 
