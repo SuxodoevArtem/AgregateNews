@@ -16,9 +16,11 @@
     </nav>
 </template>
 <script>
+
     export default ({
         name: 'Header',
     })
+    
 </script>
 <style lang="scss">
     @import '/public/colors.scss';

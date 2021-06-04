@@ -14,14 +14,14 @@
         </button>
     </div>
 
-    <h5 class="Login-conteiner_messange" v-text="messange"></h5>
+    <h5 class="Login-conteiner_messange" > {{messange}}</h5>
 
   </div>
 </template>
 
 <script >
 
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
     name: 'Login',
@@ -30,15 +30,19 @@ export default {
             email: " ",
             password: " "
         },
-        messange: `Ваш логин или пороль неподходят !`,
     }),
+    computed: {
+        ...mapGetters({
+            messange: 'authError',
+        }),
+    },
     methods: {
         ...mapActions({
             login: 'login',
         }),
         async Login(){
             await this.login(this.loginForm);
-            
+            this.$router.push('/');
         }
     }
 }
@@ -145,7 +149,7 @@ export default {
 
     @media (max-width: 990px){
         .Login-conteiner{
-            width: 60%;
+            width: 50%;
             height: 520px;
         }
     }
@@ -163,4 +167,5 @@ export default {
             height: 480px;
         }
     }
+    
 </style>

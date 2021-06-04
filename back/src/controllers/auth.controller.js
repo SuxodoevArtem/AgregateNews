@@ -10,7 +10,7 @@ const signUp = async ( { body: {email, password } } , res) => {
         
         if(!foundUser){
             return res.status(403).send({
-                message: "Такой email уже существует",
+                messange: "Такой email уже существует",
                 err
             })
         }
@@ -22,12 +22,12 @@ const signUp = async ( { body: {email, password } } , res) => {
         await CreateUser(email, passwordHash);
 
         return res.status(200).send({
-            message: "Пользователь создан",
+            messange: "Пользователь создан",
         })
 
     }catch(err){
         res.status(403).send({
-            message: 'Ваш логин или пороль неподходят!'
+            messange: 'Ваш логин или пороль неподходят!'
         })
     }
 }
@@ -36,21 +36,34 @@ const login = async ( { body: {email, password } }, res) => {
     try{
 
         const foundUser = await GetUser(email);
-        console.log(bcrypt.compareSync(password, foundUser[0].users_password));
+        console.log(foundUser);
 
-        if( bcrypt.compareSync(password, foundUser[0].users_password) ){
-            res.status(200).send({
-                message: 'Пользователь залогинин'
-            })
-        }else{
+        if(!!foundUser){
+            if( bcrypt.compareSync(password, foundUser[0].users_password) ){
+                
+                const token = jwt.sign({ userId: foundUser[0].users_id, userEmail: foundUser[0].users_email }, process.env.JWT_SECRET);
+                console.log(token)
+
+                res.status(200).send({
+                    messange: 'Пользователь залогинин',
+                    token: token
+                })
+
+            }else{
+                res.status(403).send({
+                    error: 'Ваш логин или пороль неподходят!',
+                })
+            }
+        }
+        else{
             res.status(403).send({
-                message: 'Ваш логин или пороль неподходят!'
+                error: 'Ваш логин или пороль неподходят!',
             })
         }
 
     }catch(err){
         res.status(403).send({
-            message: 'Ваш логин или пороль неподходят!'
+            error: 'Ваш логин или пороль неподходят!',
         })
     }
 }

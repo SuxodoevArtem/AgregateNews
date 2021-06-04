@@ -1,7 +1,7 @@
 import { request } from './generic.service';
 
-const signUp = data => request( {url: `auth/signup`, method: "POST", data})
+const signUpRequest = data => request( {url: `auth/signup`, method: "post", data} )
 
-const login = data => request( {url: `auth/login`, method: "POST", data})
+const loginRequest = data => request( {url: `auth/login`, method: "post", data} )
 
-export { signUp, login }
+export { signUpRequest , loginRequest }
