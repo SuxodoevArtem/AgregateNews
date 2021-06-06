@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { logout } from '../../../back/src/controllers/auth.controller';
 import { loginRequest } from '../services/auth.service'
 
 const mutations = {
@@ -14,6 +15,11 @@ const mutations = {
         state.token = token
         state.status = messange;
         state.authError = ''
+    },
+
+    logout(state){
+        state.status = 'Разлогинен'
+        state.token = ''
     }
 }
 
@@ -23,18 +29,23 @@ const actions = {
 
         const data = await loginRequest(loginForm);
 
-
         if(data){
             localStorage.setItem('token', data.token);
             axios.defaults.headers.common['Authorization'] = data.token;
-            commit('auth_success', data.messange, status);
+            commit('auth_success', data.messange,  data.token);
         }
 
         if(data.error != null){
-            commit('auth_error', data.error, data.token);
+            commit('auth_error', data.error);
             localStorage.removeItem('token');
         }
-    }
+    },
+
+    async logout( { commit } ){
+        commit('logout');
+        localStorage.removeItem('token');
+        delete axios.defaults.headers.common['Authorization'];
+    },
     
 }
 

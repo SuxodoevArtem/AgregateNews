@@ -6,7 +6,7 @@ const CreateDatabase = async () => {
         `CREATE TABLE if not exists users (
             users_id SERIAL PRIMARY KEY NOT NULL,
             users_password text NOT NULL,
-            users_email varchar(100) NOT NULL
+            users_email varchar(100) NOT NULL,
             users_token text,
         );
 		

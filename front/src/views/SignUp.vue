@@ -9,7 +9,8 @@
             <button class="SignUp-conteiner_button">
                 <router-link to="/Login">
                     <a>Login</a>
-                </router-link></button>
+                </router-link>
+            </button>
         </div>
   </div>
 </template>
@@ -107,7 +108,7 @@ export default {
 
     @media (max-width: 990px){
         .SignUp-conteiner{
-            width: 60%;
+            width: 50%;
             height: 520px;
         }
     }
@@ -121,8 +122,8 @@ export default {
 
     @media (max-width: 568px){
         .SignUp-conteiner{
-            width: 80%;
-            height: 450px;
+            width: 90%;
+            height: 480px;
         }
     }
 

@@ -39,6 +39,7 @@ export default {
     methods: {
         ...mapActions({
             login: 'login',
+            logout: 'logout',
         }),
         async Login(){
             await this.login(this.loginForm);
@@ -135,7 +136,7 @@ export default {
         
     }
 
-     @media (max-width: 1600px){
+    @media (max-width: 1600px){
         .Login-conteiner{
             width: 30%;
         }
