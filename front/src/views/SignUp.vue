@@ -1,27 +1,56 @@
 <template>
   <div class="SignUp-conteiner"> 
       <h2>Create Account</h2>
-      <input class="SignUp-conteiner_input" placeholder="Email">
-      <input class="SignUp-conteiner_input" placeholder="Password" type="password">
-      <input class="SignUp-conteiner_input" placeholder="Password" type="password">
+      <input class="SignUp-conteiner_input" placeholder="Email" v-model="signUpForm.email">
+      <input class="SignUp-conteiner_input" placeholder="Password" type="password" v-model="signUpForm.password" v-bind:class="{Dangeros: isActive}">
+      <input class="SignUp-conteiner_input" placeholder="Password" type="password" v-model="signUpForm.passwordRepeat" v-bind:class="{Dangeros: isActive}">
         <div class="btn-container"> 
-            <button class="SignUp-conteiner_button">SignUp</button>
+            <button class="SignUp-conteiner_button" @click="SignUp">SignUp</button>
             <button class="SignUp-conteiner_button">
                 <router-link to="/Login">
                     <a>Login</a>
                 </router-link>
             </button>
         </div>
+        <h5 class="SignUp-conteiner_messange" > {{messange}}</h5>
   </div>
 </template>
 
 <script >
 
-export default {
-  
-  name: 'SignUp',
+import { mapActions, mapGetters } from 'vuex'
 
+export default {
+    name: 'SignUp',
+    data: () => ({
+        signUpForm: {
+            email: " ",
+            password: " ",
+            passwordRepeat: " ",
+        },
+        isActive: false,
+    }),
+    computed: {
+        ...mapGetters({
+            messange: 'authError',
+        }),
+        
+    },
+    methods: {
+        ...mapActions({
+            signUp: 'signUp',
+        }),
+        async SignUp(){
+            console.log(this.signUpForm.passwordRepeat + ' ' + this.signUpForm.password)
+            if(this.signUpForm.passwordRepeat == this.signUpForm.password){
+                await this.signUp(this.signUpForm);
+            }else{
+                this.isActive = true;
+            }
+        }
+    },
 }
+
 </script>
 
 <style lang="scss">
@@ -56,6 +85,11 @@ export default {
             padding-left: 10px;
         }
 
+        .Dangeros{
+            border-color:  #f77676;
+        }
+        
+
         .btn-container{
 
             display: flex;
@@ -88,10 +122,16 @@ export default {
                     transition: 0.2s all;
                 }
             }
-
-     
         }
 
+        
+        .SignUp-conteiner_messange {
+            color: $color_err;
+            padding-top: 25px;
+            padding-left: 100px;
+            padding-right: 100px;
+            text-align: center;
+        }
     }
 
     @media (max-width: 1600px){

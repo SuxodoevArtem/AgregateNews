@@ -45,6 +45,10 @@ export default {
             await this.login(this.loginForm);
             this.$router.push('/');
         }
+    },
+    mounted(){
+        console.log('1')
+        this.logout();
     }
 }
 

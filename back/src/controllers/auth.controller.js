@@ -1,4 +1,4 @@
-const { GetUser, CreateUser } = require('../data/querys')
+const { GetUser, CreateUser, UpdateToken } = require('../data/querys')
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
@@ -8,17 +8,15 @@ const signUp = async ( { body: {email, password } } , res) => {
 
         const foundUser = await GetUser(email);
         
-        if(!foundUser){
+        if(foundUser){
             return res.status(403).send({
-                messange: "Такой email уже существует",
-                err
+                error: "Такой email уже существует",
             })
         }
 
         const passwordHash = bcrypt.hashSync(password, 10);
 
         console.log(passwordHash);
-
         await CreateUser(email, passwordHash);
 
         return res.status(200).send({
@@ -27,7 +25,7 @@ const signUp = async ( { body: {email, password } } , res) => {
 
     }catch(err){
         res.status(403).send({
-            messange: 'Ваш логин или пороль неподходят!'
+            error: 'Ваш логин или пороль неподходят!'
         })
     }
 }
@@ -41,8 +39,14 @@ const login = async ( { body: {email, password } }, res) => {
         if(!!foundUser){
             if( bcrypt.compareSync(password, foundUser[0].users_password) ){
                 
-                const token = jwt.sign({ userId: foundUser[0].users_id, userEmail: foundUser[0].users_email }, process.env.JWT_SECRET);
-                console.log(token)
+                const token = jwt.sign({ userId: foundUser[0].users_id,
+                    userEmail: foundUser[0].users_email },
+                    process.env.JWT_SECRET, 
+                    { expiresIn: 86400 }
+                );
+
+                console.log(token);
+                await UpdateToken(foundUser[0].users_id, token);
 
                 res.status(200).send({
                     messange: 'Пользователь залогинин',
@@ -68,12 +72,8 @@ const login = async ( { body: {email, password } }, res) => {
     }
 }
 
-const logout = async (req, res) => {
-
-}
 
 module.exports = {
     signUp,
     login,
-    logout
 }

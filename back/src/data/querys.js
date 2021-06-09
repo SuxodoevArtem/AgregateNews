@@ -92,11 +92,21 @@ const CreateUser = async (email, passwordHash) => {
     return data;
 }
 
+const UpdateToken = async (user_id, token) => {
+
+    await postgres.any(`UPDATE public.users 
+        SET users_token = $2
+        WHERE users_id = $1 `, [user_id, token]
+    );
+
+}
+
 module.exports = {
     CreateDatabase,
     GetAllNews,
     GetAllSettings,
     GetUser,
-    CreateUser
+    CreateUser,
+    UpdateToken 
 }
 
