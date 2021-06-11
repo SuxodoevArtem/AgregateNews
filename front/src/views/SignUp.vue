@@ -72,6 +72,7 @@ export default {
         }   
 
         .SignUp-conteiner_input{
+            outline: none;
             display: block;
             margin: auto;
             margin-top: 22px;

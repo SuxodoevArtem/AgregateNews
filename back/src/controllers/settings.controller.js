@@ -6,3 +6,4 @@ const GetRSS = async (req, res) => {
 module.exports = {
     GetRSS,
 }
+

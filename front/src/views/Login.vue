@@ -74,6 +74,7 @@ export default {
         }
 
         .Login-conteiner_input{
+            outline: none;
             display: block;
             margin: auto;
             margin-top: 22px;
