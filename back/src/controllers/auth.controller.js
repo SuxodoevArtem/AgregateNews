@@ -7,8 +7,8 @@ const signUp = async ( { body: {email, password } } , res) => {
     try{
 
         const foundUser = await GetUser(email);
-        
-        if(foundUser){
+
+        if(foundUser.length){
             return res.status(403).send({
                 error: "Такой email уже существует",
             })

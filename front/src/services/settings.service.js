@@ -1,9 +1,9 @@
 import { request } from './generic.service';
 
-const getSources = data => request( {url: `settigs/getrss`, method: "get", data} );
+const getSources = data => request( {url: `settigs/getsources`, method: "get", data} );
 
-const addSource = data => request( {url: `settigs/addrss`, method: "post", data} );
+const deleteSource = data => request( {url: `settigs/deletesourse`, method: "post", data} );
 
-const updateSource = data => request( {url: `settigs/updaterss`, method: "post", data} );
+const addSource = data => request( {url: `settigs/addsourse`, method: "post", data} );
 
-export { getSources, addSource, updateSource}
+export { getSources, addSource, deleteSource }

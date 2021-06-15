@@ -4,20 +4,19 @@
         <input placeholder="Cart Name"  class="SettingsCart-container_title" :value="cartName">
         <div class="SettingsCart-container_checkboxes">
           <p for="RadBtnVK" >VK</p>
-          <input id="RadBtnVK" type="radio" :value="VK">
+          <input id="RadBtnVK"  type="radio" :checked="VK" :value="VK">
           <p for="RadBtnRSS" >RSS</p>
-          <input id="RadBtnRSS" type="radio" :value="RSS">
+          <input id="RadBtnRSS"  type="radio" :checked="RSS" :value="RSS">
         </div>
         <input placeholder="Link"  class="SettingsCart-container_Link" :value="Link">
 
         <h5>Key Words</h5>  
 
         <div class="KeyWords-container">
-            <button class="KeyWords-container_btn">Add Key Word</button>
+            <input class="KeyWords-container_input" placeholder="Add Key Word">
             <div v-for="(keyWord, key) in keyWords" :key="key">
                 <button class="KeyWords-container_keyword">{{keyWord}}</button>
                 <i class="KeyWords-container-icon fas fa-trash-alt"></i>
-                <i class="KeyWords-container-icon fas fa-pen"></i>
             </div>
         </div>
 
@@ -33,8 +32,8 @@
             VK: { type: Boolean, default: false, },
             RSS: { type: Boolean, default: true, },
             Link: { type: String, default: "", },
-            keyWords: []
-         }
+            keyWords: { type: Array },
+         }  
     }
 
 </script>

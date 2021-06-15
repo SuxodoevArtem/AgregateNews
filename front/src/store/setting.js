@@ -1,12 +1,18 @@
 //import axios from 'axios';
-//import { getSources } from '../services/settings.service'
+import { getSources, deleteSource, addSource } from '../services/settings.service'
 
 const mutations = {
     
-    setting_success(state, data, messange){
+    get_success(state, data, messange){
+        
         console.log(data);
-
         state.sourses = data
+        state.status = messange;
+    },
+
+    add_success(state, SettingForm, messange){
+        
+        state.sourses.push[SettingForm]
         state.status = messange;
     },
 
@@ -17,28 +23,30 @@ const mutations = {
 }
 
 const actions = {
+
     async GetSources( { commit } ) {
 
-        const messange = 'success'
-        const data = [
-            {
-                cartName: 'Cart1',
-                VK: false,
-                RSS: false,
-                Link: '/16y8y2sdds11r/nznsdd/ndex.com',
-                keyWords: ['PGATU','Студенты']
-            },
-            {
-                cartName: 'Cart2',
-                VK: false,
-                RSS: false,
-                Link: '/1',
-                keyWords: ['KeyWord','KeyWord','Игры']
-            },
-        ]
-            
+        const { data , messange} = await getSources();
+        commit('get_success', data, messange);
+
+    },
+
+    async DeleteSource( { commit }, cartName ) {
+
+        const { data , messange } = await deleteSource(cartName);
         commit('setting_success', data, messange);
-    }
+
+    },
+
+    async AddSource( { commit }, SettingForm ) {
+
+        console.log(SettingForm)
+
+        const { messange } = await addSource(SettingForm);
+        commit('add_success', SettingForm, messange);
+
+    },
+
 }
 
 const getters = {

@@ -15,25 +15,27 @@
           />
       </div>
 
-      
       <div class="SettingsCart-container">
         <input placeholder="Cart Name"  class="SettingsCart-container_title" v-model="SettingForm.cartName">
         <div class="SettingsCart-container_checkboxes">
           <p for="RadBtnVK" >VK</p>
-          <input id="RadBtnVK" type="radio" value="0" v-model="SettingForm.VK">
+          <input id="RadBtnVK"  type="radio" v-model="SettingForm.VK"  value=true>
           <p for="RadBtnRSS" >RSS</p>
-          <input id="RadBtnRSS" type="radio" value="1" v-model="SettingForm.RSS">
+          <input id="RadBtnRSS"  type="radio"   v-model="SettingForm.VK" value=false>
         </div>
         <input placeholder="Link"  class="SettingsCart-container_Link" v-model="SettingForm.Link">
 
         <h5>Key Words</h5>
 
         <div class="KeyWords-container">
-          <button class="KeyWords-container_btn">Add Key Word</button>
-    
+          <input class="KeyWords-container_input" placeholder="Add Key Word" v-on:keyup.enter="addKey" v-model="keyword">
+          <div v-for="(keyWord, key) in SettingForm.keyWords" :key="key">
+                <button class="KeyWords-container_keyword">{{keyWord}}</button>
+                <i class="KeyWords-container-icon fas fa-trash-alt"></i>
+          </div>
         </div>
 
-        <button class="SettingsCart-container_Save">Save</button>
+        <button class="SettingsCart-container_Save" @click="addSourse">Save</button>
 
       </div>
     </div>
@@ -54,10 +56,11 @@
         SettingForm: {
             cartName: 'NewCart',
             VK: false,
-            RSS: false,
+            RSS: true,
             Link: '',
             keyWords: []
         },
+        keyword: ''
     }),
     mounted(){
       this.GetSources();
@@ -70,7 +73,15 @@
     methods: {
         ...mapActions({
             GetSources: 'GetSources',
+            AddSource: 'AddSource',
+            /*DeleteSource: 'DeleteSource',*/
         }),
+        addKey(){
+          this.SettingForm.keyWords.push(this.keyword)
+        },
+        addSourse(){
+          this.AddSource(this.SettingForm)
+        }
     },
     
   }
@@ -84,7 +95,7 @@
 
       .SettingsCart-container{
         width: 20%;
-        height: 54vh;
+        height: 56vh;
         margin-right: 25px;
         border: 2px solid #C0C0C0;
         background-color: #fafafa;
@@ -141,24 +152,25 @@
           height: 22vh;
           width: 90%;
           
-          .KeyWords-container_btn{
+          .KeyWords-container_input{
             outline: none;
             margin: 1%;
             height: 4vh;
             width: 55%;
             border-radius: 15px;
             border: 1px solid #AFAFAF;
-            font-size: 15px;
-            color: #AFAFAF;
             background-color: #fafafa;
           }
 
-          .KeyWords-container_btn:hover{
-            height: 4.2vh;
-            transition: all 0.1s;
+          .KeyWords-container_input::-webkit-input-placeholder  {
+            font-size: 15px;
+            color: #AFAFAF;
+            text-align: center;
           }
-
+          
           .KeyWords-container_keyword{
+            white-space: nowrap; /* Отменяем перенос текста */
+            overflow: hidden;
             outline: none;
             margin: 1%;
             height: 4vh;
@@ -169,14 +181,13 @@
             color: #4883eb;
             background-color: #47C8FF;
             opacity: 0.48;
-            margin-right: 19%;
-
+            margin-right: 30%;
           }
 
           .KeyWords-container-icon{
             color: #C0C0C0;
             cursor: pointer;
-            margin-left: 4%;
+            margin-left: 6%;
             font-size: 16px;
           }
 
@@ -188,6 +199,7 @@
         }
 
         .SettingsCart-container_Save{
+          margin-top: 2vh;
           height: 4.4vh;
           border: none;
           width: 26%;
@@ -204,6 +216,7 @@
         }
 
         .SettingsCart-container_Delete{
+            margin-top: 2vh;
             height: 4.4vh;;
             border: none;
             width: 26%;

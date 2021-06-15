@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { loginRequest, signUpRequest } from '../services/auth.service'
+import  router  from '../router/index'
 
 const mutations = {
 
@@ -49,7 +50,10 @@ const actions = {
 
         if(data.error != null){
             commit('auth_error', data.error);
+        }else{ 
+            router.push('/login');
         }
+    
 
     },
 

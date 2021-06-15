@@ -2,6 +2,8 @@ import axios from 'axios'
 
 const API_URL = 'http://localhost:3003';
 
+axios.defaults.headers.common['Authorization'] = localStorage.getItem('token') || '';
+
 export const request = async ({url, method, data}) => {
 
     try{
