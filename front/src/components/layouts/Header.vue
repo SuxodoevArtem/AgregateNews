@@ -6,6 +6,7 @@
               <router-link to="/"><a>News</a></router-link>
               <router-link to="/Settings"><a>Settings</a></router-link>
               <router-link to="/Analistics"><a>Analistics</a></router-link>
+              <router-link to="/Api"><a>API</a></router-link>
             </div>
         </div>
         <div class="right-conteiner">

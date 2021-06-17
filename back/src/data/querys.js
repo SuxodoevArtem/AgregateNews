@@ -149,6 +149,14 @@ const CreateKeyWord = async(keyword, id) => {
 
 }
 
+const SetUserKey = async(id, key) => {
+    await postgres.any(`
+        UPDATE public.users
+        SET api_key= '$2'
+        WHERE users_id = $1`,[id, key]
+    );
+}
+
 module.exports = {
     CreateDatabase,
     GetAllNews,
@@ -159,6 +167,7 @@ module.exports = {
     CreateRss,
     CreateKeyWord,
     GetSourses,
-    GetKeyWord
+    GetKeyWord,
+    SetUserKey
 }
 

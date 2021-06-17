@@ -8,6 +8,7 @@ const checkJWT = require('./src/middlewares/webtoken.middleware')
 const newsRouter = require('./src/routers/news')
 const authRouter = require('./src/routers/auth')
 const settingsRouter = require('./src/routers/settings');
+const apiRouter = require('./src/routers/api');
 
 const app = express();
 app.use(cors());
@@ -18,6 +19,7 @@ app.use(checkJWT);
 app.use(newsRouter);
 app.use(authRouter);
 app.use(settingsRouter);
+app.use(apiRouter);
 
 CreateDatabase();
 

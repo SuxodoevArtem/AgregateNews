@@ -23,6 +23,12 @@ const routes = [
         meta: { requiresAuth: true },
     },
     {
+        path: '/Api',
+        name: 'Api',
+        component: () => import('@/views/Api.vue'),
+        meta: { requiresAuth: true },
+    },
+    {
         path: '/SignUp',
         name: 'SignUp',
         component: () => import('@/views/SignUp.vue'),
